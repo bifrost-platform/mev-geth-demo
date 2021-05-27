@@ -1,6 +1,6 @@
 import { ethers, ContractFactory } from 'ethers'
 import { FlashbotsBundleProvider } from '@flashbots/ethers-provider-bundle'
-// @ts-ignore
+// @ts-ignoreg
 import solc from 'solc'
 
 const CONTRACT = `
