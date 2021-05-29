@@ -5,6 +5,7 @@ const FAUCET = '0x133be114715e5fe528a1b8adf36792160601a2d63ab59d1fd454275b313287
 const DUMMY_RECEIVER = '0x1111111111111111111111111111111111111111'
 // connect to the simple provider
 let provider = new ethers.providers.JsonRpcProvider('http://localhost:9545')
+let mainProvider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 // we use the miner as a faucet for testing
 const faucet = new ethers.Wallet(FAUCET, provider)
 // we create a random user who will submit bundles
@@ -20,7 +21,7 @@ const user = ethers.Wallet.createRandom().connect(provider)
   console.log('Funding account...this may take a while due to DAG generation in the PoW testnet')
   let tx = await faucet.sendTransaction({
     to: user.address,
-    value: ethers.utils.parseEther('1')
+    value: ethers.utils.parseEther('10')
   })
   await tx.wait()
   console.log('OK')
@@ -35,7 +36,7 @@ const user = ethers.Wallet.createRandom().connect(provider)
       signer: user,
       transaction: {
         to: DUMMY_RECEIVER,
-        value: ethers.utils.parseEther('0.1'),
+        value: ethers.utils.parseEther('0.2'),
         nonce: nonce
       }
     },
@@ -51,7 +52,7 @@ const user = ethers.Wallet.createRandom().connect(provider)
   ]
 
   console.log('Submitting bundle')
-  const blk = await provider.getBlockNumber()
+  const blk = await flashbotsProvider.getBlockNumber()
   const result = await flashbotsProvider.sendBundle(txs, blk + 5)
   if ('error' in result) {
     throw new Error(result.error.message)
@@ -72,6 +73,11 @@ const user = ethers.Wallet.createRandom().connect(provider)
   const profit = balanceAfter.sub(balanceBefore).sub(ethers.utils.parseEther('2'))
   console.log('Profit (ETH)', ethers.utils.formatEther(profit))
   console.log('Profit equals bribe?', profit.eq(bribe))
+
+  const RECEIVER_bal = await mainProvider.getBalance(DUMMY_RECEIVER)
+  console.log('Reciver Balance: ', ethers.utils.formatEther(RECEIVER_bal))
+  const user_bal = await mainProvider.getBalance(user.address)
+  console.log('User Balance: ', ethers.utils.formatEther(user_bal))
 })().catch((err) => {
   console.error('error encountered in main loop', err)
   process.exit(1)

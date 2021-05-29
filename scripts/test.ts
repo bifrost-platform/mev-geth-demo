@@ -4,7 +4,7 @@ const FAUCET = '0x133be114715e5fe528a1b8adf36792160601a2d63ab59d1fd454275b313287
 const DUMMY_RECEIVER = '0x1111111111111111111111111111111111111111'
 
 // connect to the simple provider
-let provider = new ethers.providers.JsonRpcProvider('http://localhost:9545')
+let provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 
 // we use the miner as a faucet for testing
 const faucet = new ethers.Wallet(FAUCET, provider)
@@ -13,13 +13,13 @@ const user = ethers.Wallet.createRandom().connect(provider)
 
 ;(async () => {
   // Send 1 ether to an ens name.
-  const tx = await faucet.sendTransaction({
-    to: DUMMY_RECEIVER,
-    value: ethers.utils.parseEther("10")
-  });
+  // const tx = await faucet.sendTransaction({
+  //   to: DUMMY_RECEIVER,
+  //   value: ethers.utils.parseEther("10")
+  // });
 
-  await tx.wait()
-  console.log('OK')
+  // await tx.wait()
+  // console.log('OK')
 
   console.log((await provider.getBalance(DUMMY_RECEIVER)).toString())
 })().catch((err) => {
