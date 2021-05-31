@@ -8,6 +8,10 @@ const provider = new ethers.providers.JsonRpcProvider(url)
 var init = function () {
   provider.on("pending", (tx) => {
     let targetEth = ethers.utils.formatEther(tx.value);
+
+    if (targetEth == "1.0")
+      console.log ("Filtered!!");
+
     console.log("target value: " + targetEth);
   })
 }
