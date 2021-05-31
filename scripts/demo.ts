@@ -18,12 +18,13 @@ const user = ethers.Wallet.createRandom().connect(provider)
   console.log('Faucet', faucet.address)
   // fund the user with some Ether from the coinbase address
   console.log('Funding account...this may take a while due to DAG generation in the PoW testnet')
+  console.time("Elapsed");
   let tx = await faucet.sendTransaction({
     to: user.address,
-    value: ethers.utils.parseEther('1')
+    value: ethers.utils.parseEther('10')
   })
   await tx.wait()
-  console.log('OK')
+  console.timeEnd("Elapsed");
   const balance = await provider.getBalance(user.address)
   console.log('Balance:', balance.toString())
 

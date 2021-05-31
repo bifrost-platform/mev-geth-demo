@@ -22,6 +22,8 @@
     "demo-ws-simple": "node scripts/ws-demo.js",
     "demo-ws-contract": "node scripts/ws-contract-bribe-demo.js",
     "testfl": "ts-node scripts/test_flbot.ts",
-    "test": "ts-node scripts/test.ts"
+    "test": "ts-node scripts/test.ts",
+    "getTx": "ts-node test_contract/DAO/test_scenario/getMempool.ts",
+    "deploy": "ts-node test_contract/DAO/test_scenario/deploy.ts"
   }
 }
