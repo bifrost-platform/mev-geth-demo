@@ -11,7 +11,16 @@ contract dao {
     stopSig = true;
   }
 
-  fallback () external payable { return; }
+  function startService () public {
+    stopSig = false;
+  }
+
+  function getService () public returns (bool)
+  {
+    return stopSig;
+  }
+
+  fallback () external payable { require(stopSig != true); return; }
 
   function deposit() public payable {
     balances[msg.sender] += msg.value;

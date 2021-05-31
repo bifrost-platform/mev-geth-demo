@@ -24,6 +24,7 @@
     "testfl": "ts-node scripts/test_flbot.ts",
     "test": "ts-node scripts/test.ts",
     "getTx": "ts-node test_contract/DAO/test_scenario/getMempool.ts",
-    "deploy": "ts-node test_contract/DAO/test_scenario/deploy.ts"
+    "deploy": "ts-node test_contract/DAO/test_scenario/deploy.ts",
+    "send1eth": "ts-node test_contract/DAO/test_scenario/send1eth.ts"
   }
 }

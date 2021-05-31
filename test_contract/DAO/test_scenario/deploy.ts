@@ -23,6 +23,7 @@ const INPUT = {
 const OUTPUT = JSON.parse(solc.compile(JSON.stringify(INPUT)))
 const COMPILED = OUTPUT.contracts['dao.sol']
 const ABI = COMPILED.dao.abi
+console.log(ABI)
 const BIN = '0x' + COMPILED.dao.evm.bytecode.object
 const DUMMY_RECEIVER = '0x1111111111111111111111111111111111111111'
 

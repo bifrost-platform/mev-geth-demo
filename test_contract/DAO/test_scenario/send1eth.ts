@@ -6,13 +6,17 @@ const provider = new ethers.providers.JsonRpcProvider(url)
 const FAUCET = '0x133be114715e5fe528a1b8adf36792160601a2d63ab59d1fd454275b31328791'
 // we use the miner as a faucet for testing
 const faucet = new ethers.Wallet(FAUCET, provider)
+const daoAddr = "0x22782CB90248608d54DC4be2E467cA927Ddc9AB1"
 
 ; (async () => {
   let tx = await faucet.sendTransaction({
-    to: "0xBF0bd8e5a8e74bF04A929A96af6E182F4439C60d",
-    value: ethers.utils.parseEther('10')
+    to: daoAddr, // dao Contract
+    value: ethers.utils.parseEther('1')
   })
   await tx.wait()
-})().catch ((err) => {
+  console.log (ethers.utils.formatEther(await provider.getBalance(daoAddr)))
 
+})().catch ((err) => {
+  console.error('error encountered in main loop', err)
+  process.exit(1)
 })
