@@ -6,7 +6,7 @@ const provider = new ethers.providers.JsonRpcProvider(url)
 const FAUCET = '0x133be114715e5fe528a1b8adf36792160601a2d63ab59d1fd454275b31328791'
 // we use the miner as a faucet for testing
 const faucet = new ethers.Wallet(FAUCET, provider)
-const daoAddr = "0x892e0095DE72688Eb2Ef88001EBC2B33aFD4ca8A"
+const daoAddr = "0x499CD9eee580413e057e201438F4D1a094737Af4"
 
 ; (async () => {
   let tx = await faucet.sendTransaction({
