@@ -22,7 +22,7 @@ const DAOABI = [ "function stopService () public",
 // wrap it with the mev-geth provider
 const authSigner = Wallet.createRandom()
 // This can be an address or an ENS name
-const daoAddr = "0x22782CB90248608d54DC4be2E467cA927Ddc9AB1"
+const daoAddr = "0x892e0095DE72688Eb2Ef88001EBC2B33aFD4ca8A"
 // we create a random user who will submit bundles
 const user = ethers.Wallet.createRandom().connect(provider)
 
@@ -77,7 +77,7 @@ var init = function () {
           }]
         const blk = await provider.getBlockNumber()
         //tx.hash
-        const result = await flashbotsProvider.sendBundle(txs, blk + 1)
+        const result = await flashbotsProvider.sendBundle(txs, blk + 1) // 여기 options를 넣던 말던 막힌다
 
         if ('error' in result) {
           throw new Error(result.error.message)
