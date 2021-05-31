@@ -3,8 +3,8 @@ import { ethers, ContractFactory } from 'ethers'
 import solc from 'solc'
 
 var fs = require('fs');
-var data = fs.readFileSync('/home/jeongmin/Documents/ \
-                            mev-geth-demo/test_contract/DAO/dao.sol','utf8');
+var data = fs.readFileSync('/home/jeongmin/Documents/' +
+                           'mev-geth-demo/test_contract/DAO/dao.sol','utf8');
 const INPUT =
   { language: 'Solidity',
     sources: { 'dao.sol': { content: data }},
@@ -19,8 +19,8 @@ const DUMMY_RECEIVER = '0x1111111111111111111111111111111111111111'
 // connect to the simple provider
 const url = 'http://localhost:8545'
 const provider = new ethers.providers.JsonRpcProvider(url)
-const FAUCET = '0x133be114715e5fe528a1b8adf367921606 \
-                01a2d63ab59d1fd454275b31328791'
+const FAUCET = '0x133be114715e5fe528a1b8adf367921606' +
+               '01a2d63ab59d1fd454275b31328791'
 // we use the miner as a faucet for testing
 const faucet = new ethers.Wallet(FAUCET, provider)
 // we create a random user who will submit bundles
