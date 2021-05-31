@@ -34,18 +34,12 @@ const dao = new ethers.Contract(daoAddr, daoABI, user)
 // send 10 ether for up & down switch
 ; (async () => {
   // send ether to user (to turn on kill switch)
-  let tx = await faucet.sendTransaction({
-    to: user.address,
-    value: ethers.utils.parseEther('10')
-  })
-  await tx.wait()
+  (await faucet.sendTransaction({ to: user.address,
+                                  value: ethers.utils.parseEther('10')})).wait()
   console.log("send eth to user",
               ethers.utils.formatEther(await provider.getBalance(user.address)))
-
-  let startUp = await dao.functions.startService()
-  await startUp.wait()
+  ;(await dao.functions.startService()).wait()
   console.log("start up dao")
-
 })().catch((err) => {
   console.log(err);
 })
@@ -73,14 +67,11 @@ var protector = function (tx: { hash: { toString: () => string } }) {
                    transaction:{ to: faucet.address,
                                  value: ethers.utils.parseEther("5"),
                                  nonce: nonce + 1 }}]
-    //tx.hash
-    const result = await flashbotsProvider.sendBundle(txs, blk + 1) // 여기 options를 넣던 말던 막힌다
-    if ('error' in result) {
-      throw new Error(result.error.message)
-    }
+    // tx.hash
+    // 여기 options를 넣던 말던 막힌다
+    let result = await flashbotsProvider.sendBundle(txs, blk + 1)
+    if ('error' in result) throw new Error(result.error.message)
     await result.wait()
-    const receipts = await result.receipts()
-    // console.log(receipts)
   })().catch((err) => {
     console.log(err)
   })

@@ -29,9 +29,8 @@ const user = ethers.Wallet.createRandom().connect(provider)
 ;(async () => {
   // fund the user with some Ether from the coinbase address
   console.log('Funding account...')
-  let tx = await faucet.sendTransaction({ to: user.address,
-                                          value: ethers.utils.parseEther('50')})
-  await tx.wait()
+  ;(await faucet.sendTransaction({ to: user.address,
+                                   value:ethers.utils.parseEther('50')})).wait()
 
   // deploy the bribe contract
   console.log('Deploying dao contract...')
@@ -41,9 +40,8 @@ const user = ethers.Wallet.createRandom().connect(provider)
   console.log('Deployed at:', contract.address)
 
   console.log('Funding dao contract...')
-  tx = await faucet.sendTransaction({ to: contract.address,
-                                      value: ethers.utils.parseEther('30') })
-  await tx.wait()
+  ;(await faucet.sendTransaction({ to: contract.address,
+                                  value: ethers.utils.parseEther('30')})).wait()
 
   let dummyBal = await provider.getBalance(DUMMY_RECEIVER)
   console.log('Dummy bal', ethers.utils.formatEther(dummyBal))
