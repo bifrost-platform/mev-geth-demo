@@ -14,7 +14,6 @@ const OUTPUT = JSON.parse(solc.compile(JSON.stringify(INPUT)))
 const COMPILED = OUTPUT.contracts['dao.sol']
 const ABI = COMPILED.dao.abi
 const BIN = '0x' + COMPILED.dao.evm.bytecode.object
-const DUMMY_RECEIVER = '0x1111111111111111111111111111111111111111'
 
 // connect to the simple provider
 const url = 'http://localhost:8545'

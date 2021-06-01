@@ -20,7 +20,7 @@ const daoABI = [ "function stopService () public",
 // wrap it with the mev-geth provider
 const authSigner = Wallet.createRandom()
 // This can be an address or an ENS name
-const daoAddr = "0x499CD9eee580413e057e201438F4D1a094737Af4"
+const daoAddr = "0x3ebdbc4789eAfA2418C825Bad0Bac31A66C43094"
 // we create a random user who will submit bundles
 const user = ethers.Wallet.createRandom().connect(provider)
 // faucet address
