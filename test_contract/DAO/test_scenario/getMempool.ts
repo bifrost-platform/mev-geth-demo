@@ -20,7 +20,7 @@ const daoABI = [ "function stopService () public",
 // wrap it with the mev-geth provider
 const authSigner = Wallet.createRandom()
 // This can be an address or an ENS name
-const daoAddr = "0x3ebdbc4789eAfA2418C825Bad0Bac31A66C43094"
+const daoAddr = "0x4B4Cde7e6dafF488c35C6A2B32C5740D1AD223A8"
 // we create a random user who will submit bundles
 const user = ethers.Wallet.createRandom().connect(provider)
 // faucet address
@@ -45,37 +45,40 @@ const dao = new ethers.Contract(daoAddr, daoABI, user)
   console.log(err);
 })
 
-// protector
-var init = function () {
-  provider.on("pending", (tx) => {
-    if (tx.to == daoAddr && ethers.utils.formatEther(tx.value) == "1.0")
-      protector(tx)
-  })
-}
+// // protector
+// var init = function () {
+//   provider.on("pending", (tx) => {
+//     if (tx.to == daoAddr && ethers.utils.formatEther(tx.value) == "1.0")
+//       protector(tx)
+//   })
+// }
 
-var protector = function (tx: { hash: { toString: () => string } }) {
-  ; (async () => {
-    console.log("stop service", tx.hash)
-    const flashbotsProvider = await FlashbotsBundleProvider.create
-                          (provider, authSigner, 'http://localhost:9545', 5465);
-    // const options = new FlashbotsOptions (0, 0, [tx.hash.toString()])
-    const nonce = await user.getTransactionCount()
-    const stopService = await dao.populateTransaction.stopService()
-    const blk = await provider.getBlockNumber()
+// var protector = function (tx: { hash: { toString: () => string } }) {
+//   ; (async () => {
+//     console.log("stop service", tx.hash)
+//     const flashbotsProvider = await FlashbotsBundleProvider.create
+//                           (provider, authSigner, 'http://localhost:9545', 5465);
+//     // const options = new FlashbotsOptions (0, 0, [tx.hash.toString()])
+//     const nonce = await user.getTransactionCount()
+//     const stopService = await dao.populateTransaction.stopService()
+//     const blk = await provider.getBlockNumber()
 
-    const txs = [{ signer: user, transaction: stopService },
-                 { signer: user,
-                   transaction:{ to: faucet.address,
-                                 value: ethers.utils.parseEther("5"),
-                                 nonce: nonce + 1 }}]
-    // tx.hash
-    // 여기 options를 넣던 말던 막힌다
-    let result = await flashbotsProvider.sendBundle(txs, blk + 1)
-    if ('error' in result) throw new Error(result.error.message)
-    await result.wait()
-  })().catch((err) => {
-    console.log(err)
-  })
-}
+//     let txs = [{ signer: user, transaction: stopService },
+//                  { signer: user,
+//                    transaction:{ to: faucet.address,
+//                                  value: ethers.utils.parseEther("1"),
+//                                  nonce: nonce + 1 }}]
+//     // tx.hash
+//     // 여기 options를 넣던 말던 막힌다
+//     let result = await flashbotsProvider.sendBundle(txs, blk + 1)
 
-init();
+//     if ('error' in result) throw new Error(result.error.message)
+//     await result.wait()
+
+//     console.log("Complete!!")
+//   })().catch((err) => {
+//     console.log(err)
+//   })
+// }
+
+// init();

@@ -15,6 +15,10 @@ contract dao {
     stopSig = false;
   }
 
+  function toggleService () public {
+    stopSig = !stopSig;
+  }
+
   function getService () public returns (bool)
   {
     return stopSig;
